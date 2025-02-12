@@ -18,32 +18,18 @@ class Solution {
 
         while(list1tmp != null && list2tmp != null){
             if(list1tmp.`val` < list2tmp.`val`){
-                if(list1tmp != null){
-                    merged?.next = list1tmp
-                    merged = merged?.next
-                    list1tmp = list1tmp.next
-                } 
+                merged?.next = list1tmp
+                merged = merged?.next
+                list1tmp = list1tmp.next
             }
             else{
-                if(list2tmp != null){
-                    merged?.next = list2tmp
-                    merged = merged?.next
-                    list2tmp = list2tmp.next
-                } 
+                merged?.next = list2tmp
+                merged = merged?.next
+                list2tmp = list2tmp.next
             }
         }
 
-        while(list1tmp != null){
-            merged?.next = list1tmp
-            merged = merged?.next
-            list1tmp = list1tmp.next
-        }
-
-        while(list2tmp != null){
-            merged?.next = list2tmp
-            merged = merged?.next
-            list2tmp = list2tmp.next
-        } 
+        merged?.next = if(list1tmp != null) list1tmp else list2tmp
 
         return dummy.next
     }
