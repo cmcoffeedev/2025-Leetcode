@@ -6,6 +6,6 @@ class Solution {
             restoredArray[indices[index]] = char
         }
         
-        return String(restoredArray)
+        return restoredArray.joinToString("")
     }
 }
