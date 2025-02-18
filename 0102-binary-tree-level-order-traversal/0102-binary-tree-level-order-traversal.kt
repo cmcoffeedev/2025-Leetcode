@@ -10,23 +10,25 @@
  */
 class Solution {
     fun levelOrder(root: TreeNode?): List<List<Int>> {
-        val queue =  LinkedList<TreeNode?>()
-        val outerList = mutableListOf<List<Int>>()
-        if(root == null) return outerList
-        queue.offer(root)
-        while(queue.isNotEmpty()){
-            val innerList = mutableListOf<Int>()
-            val size = queue.size
-            for(i in 0 until size){
-                val currentNode = queue.poll()
-                currentNode?.let{ node ->
-                    innerList.add(node?.`val`)
-                    node.left?.let{ queue.offer(currentNode?.left) }
-                    node.right?.let{ queue.offer(currentNode?.right) }
-                }
-            }
-            outerList.add(innerList)
-        }
-        return outerList
+       val queue = ArrayDeque<TreeNode?>() 
+       val levelList = mutableListOf<MutableList<Int>>()
+       if(root == null) return levelList 
+       queue.add(root)
+       while(queue.isNotEmpty()){
+           val size = queue.size
+           val list = mutableListOf<Int>()
+           for(i in 0 until size){
+               val item = queue.removeFirst()
+               item?.let{ list.add(it.`val`) }   
+               item?.left?.let{
+                   queue.add(it)
+               }
+               item?.right?.let{
+                   queue.add(it)
+               }
+           }
+           levelList.add(list)
+       }
+       return levelList
     }
 }
