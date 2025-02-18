@@ -9,20 +9,17 @@
  * }
  */
 class Solution {
-    var prev : Int? = null
     fun isValidBST(root: TreeNode?): Boolean {
-       return inorder(root) 
+        return traverseDFS(root, null, null)
     }
-    
-    private fun inorder(root: TreeNode?): Boolean{
-        if(root == null) return true
-        
-           if(!inorder(root?.left)) return false
-           prev?.let {
-               if(root?.`val` <= it) return false
-           }
-           prev = root?.`val`
-           return inorder(root?.right) 
+
+    fun traverseDFS(root: TreeNode?, min: Int?, max: Int?) : Boolean{
+        if (root == null) return true 
+        if(max != null && root.`val` >= max) return false
+        if(min != null && root.`val` <= min) return false
+
+        return traverseDFS(root?.left, min, root?.`val`) &&
+        traverseDFS(root?.right, root?.`val`, max)
     }
 
 }
