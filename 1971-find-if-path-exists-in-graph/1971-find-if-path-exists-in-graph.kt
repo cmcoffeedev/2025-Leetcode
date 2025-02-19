@@ -1,6 +1,5 @@
 class Solution {
     fun validPath(n: Int, edges: Array<IntArray>, source: Int, destination: Int): Boolean {
-
         if(source == destination) return true
 
         val adjList = mutableMapOf<Int, MutableList<Int>>()
@@ -12,20 +11,26 @@ class Solution {
 
         val seen = mutableSetOf<Int>() 
 
-        val queue = ArrayDeque<Int>().apply { addLast(source) }
+        return dfs(source, destination, adjList, seen)
+    }
 
-        while(queue.isNotEmpty()){
-            val node = queue.removeFirst()
-            if(node == destination) return true
-            
-            adjList[node]?.forEach { neighbor ->
-                if(!seen.contains(neighbor)){
-                    seen.add(neighbor)
-                    queue.addLast(neighbor)
+    fun dfs(
+        source: Int,
+        destination: Int,
+        adjList: Map<Int, List<Int>>,
+        seen: MutableSet<Int>
+    ): Boolean{
+        if(source == destination) return true
+        seen.add(source)
+
+        adjList[source]?.forEach { neighbor ->
+            if(!seen.contains(neighbor)){
+                if( dfs(neighbor, destination, adjList, seen) ){
+                    return true
                 }
             }
         }
-        
+
         return false
     }
 }
