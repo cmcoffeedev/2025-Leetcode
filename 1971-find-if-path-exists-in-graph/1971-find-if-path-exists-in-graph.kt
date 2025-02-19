@@ -4,7 +4,7 @@ class Solution {
         if(source == destination) return true
 
         val adjList = mutableMapOf<Int, MutableList<Int>>()
-        
+
         edges.forEach{ (first, second) ->
             adjList.computeIfAbsent(first) { mutableListOf() }.add(second)
             adjList.computeIfAbsent(second) { mutableListOf() }.add(first)
@@ -12,17 +12,16 @@ class Solution {
 
         val seen = mutableSetOf<Int>() 
 
-        val stack = ArrayDeque<Int>()
-        stack.addLast(source)
+        val queue = ArrayDeque<Int>().apply { addLast(source) }
 
-        while(stack.isNotEmpty()){
-            val node = stack.removeLast()
+        while(queue.isNotEmpty()){
+            val node = queue.removeFirst()
             if(node == destination) return true
             
             adjList[node]?.forEach { neighbor ->
                 if(!seen.contains(neighbor)){
                     seen.add(neighbor)
-                    stack.addLast(neighbor)
+                    queue.addLast(neighbor)
                 }
             }
         }
