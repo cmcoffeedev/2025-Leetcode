@@ -1,24 +1,15 @@
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        /*
-        Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-        */
-
+        // num to index
         val map = mutableMapOf<Int, Int>()
-        for(i in 0 until nums.size){
-            val current = nums[i]
-            val complement = target - current
-            if(map.containsKey(complement)){
-                map[complement]?.let{ index ->
-                    return intArrayOf(index, i)
-                }
+        nums.forEachIndexed{ index, num -> 
+            val complement = target - num
+            map[complement]?.let{ complementIndex ->
+                return intArrayOf(index, complementIndex)
             }
-            map[current] = i
+            map[num] = index
         }
-        
-        return intArrayOf(-1,-1)
-        
+
+        return intArrayOf(-1, -1)
     }
 }
