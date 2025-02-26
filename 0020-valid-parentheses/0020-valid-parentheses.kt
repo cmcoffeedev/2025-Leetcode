@@ -1,24 +1,23 @@
 class Solution {
     fun isValid(s: String): Boolean {
-        val sArray = s.toCharArray()
-        val map = mutableMapOf<Char,Char>()
-        val stack = Stack<Char>()
-        
-        map[']'] = '['
-        map[')'] = '('
-        map['}'] = '{'
-        
-        sArray.forEach{
-            if(map.containsKey(it)){
-                if(stack.isEmpty() || map[it] != stack.pop()) return false
+        val map = mapOf<Char,Char>(
+            ')' to '(',
+            '}' to '{',
+            ']' to '[',
+        )
+
+        val stack = ArrayDeque<Char>()
+
+        s.forEach{ char ->
+            if(map.containsKey(char)){
+                if(stack.isEmpty() || map[char] != stack.removeFirst()) return false
             }
             else{
-                stack.push(it)
+                stack.addFirst(char)
             }
         }
+
+        return if( stack.isEmpty() ) true else false
         
-        if(stack.isNotEmpty()) return false
-        
-        return true
     }
 }
