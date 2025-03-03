@@ -10,14 +10,16 @@
  */
 class Solution {
     fun inorderTraversal(root: TreeNode?): List<Int> {
-        return inorder(root, mutableListOf<Int>())
-    }
-
-    fun inorder(root: TreeNode?, list: MutableList<Int>): List<Int>{
-        var value = root?.`val` ?: return list
-        inorder(root?.left, list)
-        list.add(value)
-        inorder(root?.right, list)
+        val list = ArrayList<Int>()
+        traverseInOrder(root, list)
         return list
+    }
+    
+    fun traverseInOrder(root: TreeNode? , list: ArrayList<Int>){
+        if(root == null) return 
+        traverseInOrder(root?.left, list)
+        root?.let{list.add(root.`val`)}
+        traverseInOrder(root?.right, list)
+       
     }
 }
