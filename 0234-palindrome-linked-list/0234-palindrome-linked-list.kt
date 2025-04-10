@@ -9,37 +9,37 @@
  */
 class Solution {
     fun isPalindrome(head: ListNode?): Boolean {
+        var mid = middle(head)
+        var reversed = reverseList(mid)
         var tmp = head
-        var mid = findMiddle(tmp)
-        var reversedMid = reverseList(mid)
-        tmp = head
-        while(tmp != null && reversedMid != null){
-            if(tmp?.`val` != reversedMid?.`val`) return false
+        while(tmp != null && reversed != null){
+            if(tmp.`val` != reversed.`val` ) return false
             tmp = tmp?.next
-            reversedMid = reversedMid?.next
+            reversed = reversed?.next
         }
         return true
+
     }
 
-    fun findMiddle(head: ListNode?): ListNode?{
-        var slow = head 
-        var fast = head 
-        while(fast != null && fast?.next != null){
-            slow = slow?.next
-            fast = fast?.next?.next
-        }
-        return slow
-    }
-
-    fun reverseList(head: ListNode?): ListNode?{
+    fun reverseList(head: ListNode?): ListNode? {
         var tmp = head
         var prev: ListNode? = null
         while(tmp != null){
-            val next = tmp?.next
-            tmp?.next = prev
+            val next = tmp.next
+            tmp.next = prev
             prev = tmp
             tmp = next
         }
         return prev
+    }
+
+    fun middle(head: ListNode?): ListNode? {
+       var slow = head 
+       var fast = head?.next 
+       while(fast != null && fast?.next != null){
+        slow = slow?.next
+        fast = fast?.next?.next
+       }
+       return slow
     }
 }
